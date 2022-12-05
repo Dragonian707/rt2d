@@ -158,6 +158,12 @@ IF(MAKE_START)
 		start/myentity.h
 		start/myscene.cpp
 		start/myscene.h
+		start/delfoscene.cpp
+		start/delfoscene.h
+		start/grid.cpp
+		start/grid.h
+		start/hextile.cpp
+		start/hextile.h
 	)
 	target_link_libraries(start
 		${ALL_GRAPHICS_LIBS}

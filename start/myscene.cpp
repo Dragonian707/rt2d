@@ -54,6 +54,26 @@ void MyScene::update(float deltaTime)
 	}
 
 	// ###############################################################
+	// WASD moves myentity
+	// ###############################################################
+	if (input()->getKey(KeyCode::D))
+	{
+		myentity->position += Point3(100, 0, 0) * deltaTime;
+	}
+	if (input()->getKey(KeyCode::A))
+	{
+		myentity->position += Point3(-100, 0, 0) * deltaTime;
+	}
+	if (input()->getKey(KeyCode::W))
+	{
+		myentity->position += Point3(0, -100, 0) * deltaTime;
+	}
+	if (input()->getKey(KeyCode::S))
+	{
+		myentity->position += Point3(0, 100, 0) * deltaTime;
+	}
+
+	// ###############################################################
 	// Rotate color
 	// ###############################################################
 	if (t.seconds() > 0.0333f) {
