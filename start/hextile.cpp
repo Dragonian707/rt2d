@@ -15,13 +15,18 @@ HexTile::HexTile() : Entity()
 	s->wrap(0);
 	s->useCulling(1);
 	s->uvoffset = Point2(-0.375f, -0.375f);
-	s->color = RED;
+	//s->color = RED;
 	this->addSprite(s);
+	isChecked = false;
 }
 
 HexTile::~HexTile()
 {
 	//this->parent()->removeChild(this);
+	for each (HexTile* neighbor in neigbors)
+	{
+		neighbor = nullptr;
+	}
 }
 
 void HexTile::update(float deltaTime)
@@ -29,14 +34,18 @@ void HexTile::update(float deltaTime)
 	
 }
 
-void HexTile::updateNeigbors()
+void HexTile::checkNeigbors(RGBAColor clickedCol)
 {
+	isChecked = true;
 	for each (HexTile* neigbor in neigbors)
 	{
 		//do stuff
-		RGBAColor color = neigbor->sprite()->color;
-		neigbor->sprite()->color = Color::rotate(color, 0.1f);
+		if (this->sprite()->color == neigbor->sprite()->color && !neigbor->isChecked)
+		{
+			neigbor->checkNeigbors(clickedCol);
+		}
 	}
+		this->sprite()->color = clickedCol;
 }
 
 void HexTile::addNeighbor(HexTile* toAdd)

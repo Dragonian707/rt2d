@@ -25,11 +25,12 @@ public:
 	/// @return void
 	virtual void update(float deltaTime);
 
-	std::vector<HexTile*> neigbors;
-
-	void updateNeigbors();
+	void checkNeigbors(RGBAColor clickedCol);
 
 	void addNeighbor(HexTile* toAdd);
+
+	std::vector<HexTile*> neigbors;
+	bool isChecked;
 
 private:
 	/* add your private declarations */

@@ -35,7 +35,12 @@ private:
 
 	int gridy = 12;
 	int gridx = 26;
-	//HexTile* tiles[12][26];
+	HexTile* firstClick = nullptr;
+
+	void createGrid();
+	void removeGrid();
+	void checkColors();
+	void win();
 
 	int CheckClosest(Point2 pos);
 };
