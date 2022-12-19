@@ -1,9 +1,9 @@
 /**
  * Copyright 2015 Your Name <you@yourhost.com>
  *
- * @file myentity.h
+ * @file hextile.h
  *
- * @brief description of MyEntity behavior.
+ * @brief description of HexTile behavior.
  */
 
 #ifndef HEXTILE_H

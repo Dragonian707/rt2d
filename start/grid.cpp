@@ -1,5 +1,5 @@
 /**
- * This class describes MyScene behavior.
+ * This class describes Grid behavior.
  *
  * Copyright 2015 Your Name <you@yourhost.com>
  */
@@ -9,7 +9,7 @@
 
 #include "grid.h"
 
-Grid::Grid() : Scene()
+Grid::Grid() : Entity()
 {
 	//add colors to list in order to assign them randomly
 	colors.push_back(RED);
@@ -41,11 +41,6 @@ Grid::~Grid()
 
 void Grid::update(float deltaTime)
 {
-	// Escape key stops the Scene
-	if (input()->getKeyUp(KeyCode::Escape)) {
-		this->stop();
-	}
-
 	//get the position of the mouse
 	int mouseX = input()->getMouseX();
 	int mouseY = input()->getMouseY();
@@ -75,10 +70,11 @@ void Grid::update(float deltaTime)
 		}
 	}
 
-	if (input()->getKeyDown(KeyCode::Enter))
-	{
-		createGrid();
-	}
+	//if (input()->getKeyDown(KeyCode::Enter))
+	//{
+	//	//createGrid();
+	//	win();
+	//}
 }
 
 int Grid::CheckClosest(Point2 pos)
@@ -118,9 +114,11 @@ void Grid::checkColors()
 		win();
 	}
 }
+
 void Grid::win()
 {
 	std::cout << "You Win!" << std::endl;
+	ManageScene::activescene = 2;
 }
 
 void Grid::createGrid()

@@ -164,6 +164,16 @@ IF(MAKE_START)
 		start/grid.h
 		start/hextile.cpp
 		start/hextile.h
+		start/startscene.cpp
+		start/startscene.h
+		start/endscene.cpp
+		start/endscene.h
+		start/managescene.cpp
+		start/managescene.h
+		start/button.h
+		start/button.cpp
+		start/gamescene.h
+		start/gamescene.cpp
 	)
 	target_link_libraries(start
 		${ALL_GRAPHICS_LIBS}

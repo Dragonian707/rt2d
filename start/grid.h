@@ -1,9 +1,9 @@
 /**
  * Copyright 2015 Your Name <you@yourhost.com>
  *
- * @file myscene.h
+ * @file grid.h
  *
- * @brief description of MyScene behavior.
+ * @brief description of Grid behavior.
  */
 
 #ifndef GRID_H
@@ -13,9 +13,10 @@
 #include <rt2d/scene.h>
 
 #include "hextile.h"
+#include "managescene.h"
 
 /// @brief The MyScene class is the Scene implementation.
-class Grid : public Scene
+class Grid : public Entity
 {
 public:
 	/// @brief Constructor
@@ -27,6 +28,7 @@ public:
 	/// @param deltaTime the elapsed time in seconds
 	/// @return void
 	virtual void update(float deltaTime);
+	void createGrid();
 
 private:
 	std::vector<HexTile*> tiles;
@@ -37,7 +39,6 @@ private:
 	int gridx = 26;
 	HexTile* firstClick = nullptr;
 
-	void createGrid();
 	void removeGrid();
 	void checkColors();
 	void win();
