@@ -21,7 +21,7 @@ Button::Button(std::string ButtonText) : Entity() {
 	addChild(textbox);
 	textbox->position.x -= (textbox->message().size() * 32 * textbox->scale.x / 2);
 
-	std::cout << textbox->position << "  " << textbox->worldposition() << std::endl;
+	//std::cout << textbox->position << "  " << textbox->worldposition() << std::endl;
 }
 
 Button::~Button() {

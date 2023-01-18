@@ -26,12 +26,17 @@ public:
 	Scene* GetActiveScene();
 
 	static int activescene;
+	static int Xsize;
+	static int Ysize;
+	static int Clicks;
+	static int Time;
+	static int Colors;
 	bool running = true;
 
 
 private:
 	Scene* currentScene;
-	enum Active {startscene, gamescene, endscene};
+	enum Active {startscene, gamescene, endscene, optionscene};
 	Active active;
 };
 

@@ -20,7 +20,7 @@ class Grid : public Entity
 {
 public:
 	/// @brief Constructor
-	Grid();
+	Grid(int X, int Y, int colorAmount);
 	/// @brief Destructor
 	~Grid();
 

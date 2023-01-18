@@ -12,8 +12,14 @@
 #include "startscene.h"
 #include "gamescene.h"
 #include "endscene.h"
+#include "optionscene.h"
 
 int ManageScene::activescene = 0;
+int ManageScene::Xsize = 26;
+int ManageScene::Ysize = 12;
+int ManageScene::Clicks = 24;
+int ManageScene::Time = 120;
+int ManageScene::Colors = 7;
 
 ManageScene::ManageScene()
 {
@@ -83,6 +89,16 @@ void ManageScene::CheckScene()
 				delete currentScene;
 				currentScene = new EndScene();
 				active = endscene;
+			}
+			break;
+		}
+		case 3:
+		{
+			if (active != optionscene)
+			{
+				delete currentScene;
+				currentScene = new OptionScene();
+				active = optionscene;
 			}
 			break;
 		}

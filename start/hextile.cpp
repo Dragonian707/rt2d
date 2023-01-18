@@ -30,7 +30,7 @@ void HexTile::update(float deltaTime)
 void HexTile::checkNeigbors(RGBAColor clickedCol)
 {
 	isChecked = true;
-	for each (HexTile* neigbor in neigbors)
+	for (HexTile* neigbor : neigbors)
 	{
 		//do stuff
 		if (this->sprite()->color == neigbor->sprite()->color && !neigbor->isChecked)

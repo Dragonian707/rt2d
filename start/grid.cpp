@@ -9,19 +9,33 @@
 
 #include "grid.h"
 
-Grid::Grid() : Entity()
+Grid::Grid(int X, int Y, int colorAmount) : Entity()
 {
-	//add colors to list in order to assign them randomly
-	colors.push_back(RED);
-	colors.push_back(ORANGE);
-	colors.push_back(YELLOW);
-	colors.push_back(GREEN);
-	colors.push_back(BLUE);
-	colors.push_back(MAGENTA);
-	colors.push_back(WHITE);
+	//set grid sizes correct
+	gridx = X;
+	gridy = Y;
 
 	//give new seed to randomize off of
 	srand(time(NULL));
+
+	//add colors to list in order to assign them randomly
+	if (colorAmount == 7)
+	{
+		colors.push_back(RED);
+		colors.push_back(ORANGE);
+		colors.push_back(YELLOW);
+		colors.push_back(GREEN);
+		colors.push_back(BLUE);
+		colors.push_back(MAGENTA);
+		colors.push_back(WHITE);
+	}
+	else
+	{
+		for (int i = 0; i <= colorAmount; i++)
+		{
+			colors.push_back(RGBAColor(rand() & 255, rand() & 255, rand() & 255, 255));
+		}
+	}
 
 	// create the grid
 	createGrid();
@@ -181,7 +195,7 @@ void Grid::createGrid()
 		//check if the values are in range
 		for (int j = indexesX.size() - 1; j >= 0; j--)
 		{
-			if (indexesX[j] > 25 || indexesY[j] > 11) //if not, erase them from the list  
+			if (indexesX[j] >= gridx || indexesY[j] >= gridy) //if not, erase them from the list  
 			{
 				indexesX.erase(indexesX.begin() + j);
 				indexesY.erase(indexesY.begin() + j);

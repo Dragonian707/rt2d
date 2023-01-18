@@ -29,6 +29,12 @@ public:
 
 private:
 	Grid* grid;
+	Timer t;
+	Text* HUD;
+	int clicksleft;
+
+	void ResetGrid();
+	void UpdateText();
 };
 
 #endif /* SCENE00_H */

@@ -158,8 +158,6 @@ IF(MAKE_START)
 		start/myentity.h
 		start/myscene.cpp
 		start/myscene.h
-		start/delfoscene.cpp
-		start/delfoscene.h
 		start/grid.cpp
 		start/grid.h
 		start/hextile.cpp
@@ -174,6 +172,12 @@ IF(MAKE_START)
 		start/button.cpp
 		start/gamescene.h
 		start/gamescene.cpp
+		start/basicentity.h
+		start/basicentity.cpp
+		start/optionscene.h
+		start/optionscene.cpp
+		start/scrollarea.h
+		start/scrollarea.cpp
 	)
 	target_link_libraries(start
 		${ALL_GRAPHICS_LIBS}
