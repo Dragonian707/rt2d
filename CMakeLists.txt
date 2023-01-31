@@ -172,8 +172,8 @@ IF(MAKE_START)
 		start/button.cpp
 		start/gamescene.h
 		start/gamescene.cpp
-		start/basicentity.h
-		start/basicentity.cpp
+		start/hudbox.h
+		start/hudbox.cpp
 		start/optionscene.h
 		start/optionscene.cpp
 		start/scrollarea.h

@@ -14,7 +14,6 @@ HexTile::HexTile() : Entity()
 
 HexTile::~HexTile()
 {
-	//this->parent()->removeChild(this);
 	for (int i = neigbors.size() - 1; i >= 0; i--)
 	{
 		neigbors[i] = nullptr;
@@ -32,13 +31,16 @@ void HexTile::checkNeigbors(RGBAColor clickedCol)
 	isChecked = true;
 	for (HexTile* neigbor : neigbors)
 	{
-		//do stuff
+		//Check of the neighbors of this kextile are the same color as this one
 		if (this->sprite()->color == neigbor->sprite()->color && !neigbor->isChecked)
 		{
+			//If so, check their neigbors as well
 			neigbor->checkNeigbors(clickedCol);
 		}
 	}
-		this->sprite()->color = clickedCol;
+	//Change all their colors to the one that was clicked
+	this->addCircleSprite("assets/hexagonPressed.tga", 64 / 2, 6);
+	this->sprite()->color = clickedCol;
 }
 
 void HexTile::addNeighbor(HexTile* toAdd)

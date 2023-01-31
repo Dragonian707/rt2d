@@ -9,24 +9,31 @@
 
 #include "optionscene.h"
 
-OptionScene::OptionScene() : Scene()
+OptionScene::OptionScene(int prevScene) : Scene()
 {
+	//initialize all the values
 	_gridx = ManageScene::Xsize;
 	_gridy = ManageScene::Ysize;
 	_maxClicks = ManageScene::Clicks;
 	_timeToBeat = ManageScene::Time;
+	_colorAmount = ManageScene::Colors;
 	Xscroll = new ScrollArea;
 	Yscroll = new ScrollArea;
 	Clickscroll = new ScrollArea;
 	Timescroll = new ScrollArea;
 	Colorscroll = new ScrollArea;
+	previous = prevScene;
 
+	//Place text at the top to inform the players about the current options
 	optionText = new Text;
 	UpdateText();
-	optionText->position = Point2(SWIDTH / 5, SHEIGHT / 8);
+	optionText->position = Point2(SWIDTH / 2, SHEIGHT / 8);
 	optionText->scale = Point2(0.4, 0.4);
+	optionText->position.x -= (optionText->message().size() * 32 * optionText->scale.x / 2);
 	this->addChild(optionText);
 
+	//--------------------------------------------------------------------------------\\
+	Add five buttons for the option selection + a button to go back to the prevous scene
 	enterX = new Button("set grid width");
 	enterX->position = Point2(SWIDTH / 4, SHEIGHT / 4);
 	enterX->setCallbackFunction(std::bind(&OptionScene::OpenGridWidth, this));
@@ -63,6 +70,7 @@ OptionScene::OptionScene() : Scene()
 	this->addChild(exitoptions);
 	Buttons.push_back(exitoptions);
 
+	//setup all the options that can be selected
 	SetupButtons();
 }
 
@@ -81,6 +89,18 @@ OptionScene::~OptionScene()
 	delete enterY;
 	enterY = nullptr;
 
+	this->removeChild(enterClick);
+	delete enterClick;
+	enterClick = nullptr;
+
+	this->removeChild(enterTime);
+	delete enterTime;
+	enterTime = nullptr;
+
+	this->removeChild(enterColors);
+	delete enterColors;
+	enterColors = nullptr;
+
 	this->removeChild(exitoptions);
 	delete exitoptions;
 	exitoptions = nullptr;
@@ -95,27 +115,22 @@ OptionScene::~OptionScene()
 		delete option;
 		option = nullptr;
 	}
+	for (Button* option : ClickOptions)
+	{
+		delete option;
+		option = nullptr;
+	}
+	for (Button* option : TimeOptions)
+	{
+		delete option;
+		option = nullptr;
+	}
+	for (Button* option : ColorOptions)
+	{
+		delete option;
+		option = nullptr;
+	}
 
-	if (Xscroll->parent() == NULL)
-	{
-		this->removeChild(Xscroll);
-	}
-	if (Yscroll->parent() == NULL)
-	{
-		this->removeChild(Yscroll);
-	}
-	if (Clickscroll->parent() == NULL)
-	{
-		this->removeChild(Clickscroll);
-	}
-	if (Timescroll->parent() == NULL)
-	{
-		this->removeChild(Timescroll);
-	}
-	if (Colorscroll->parent() == NULL)
-	{
-		this->removeChild(Colorscroll);
-	}
 	delete Xscroll;
 	delete Yscroll;
 	delete Clickscroll;
@@ -140,12 +155,12 @@ void OptionScene::update(float deltaTime)
 
 void OptionScene::CloseOptions()
 {
-	ManageScene::activescene = 0;
+	ManageScene::activescene = previous;
 }
 
 void OptionScene::SetGridWidth(int width)
 {
-	//something to set _gridX
+	//set _gridX
 	std::cout << "width pressed: " << width << std::endl;
 	if (width == 0)
 	{
@@ -162,7 +177,7 @@ void OptionScene::SetGridWidth(int width)
 }
 void OptionScene::OpenGridWidth()
 {
-	//something to set _gridX
+	//opene _gridX options
 	this->addChild(Xscroll);
 	Xscroll->active = true;
 	DisableButtons();
@@ -170,7 +185,7 @@ void OptionScene::OpenGridWidth()
 
 void OptionScene::SetGridHeight(int height)
 {
-	//something to set _gridY
+	//set _gridY
 	std::cout << "height pressed: " << height << std::endl;
 	if (height == 0)
 	{
@@ -187,7 +202,7 @@ void OptionScene::SetGridHeight(int height)
 }
 void OptionScene::OpenGridHeight()
 {
-	//something to set _gridY
+	//open _gridY options
 	this->addChild(Yscroll);
 	Yscroll->active = true;
 	DisableButtons();
@@ -195,6 +210,7 @@ void OptionScene::OpenGridHeight()
 
 void OptionScene::SetClicks(int amount)
 {
+	//set _maxClicks
 	std::cout << "clicks pressed: " << amount << std::endl;
 	if (amount == 0)
 	{
@@ -211,6 +227,7 @@ void OptionScene::SetClicks(int amount)
 }
 void OptionScene::OpenClicks()
 {
+	//open _maxClicks options
 	this->addChild(Clickscroll);
 	Clickscroll->active = true;
 	DisableButtons();
@@ -218,6 +235,7 @@ void OptionScene::OpenClicks()
 
 void OptionScene::SetTime(int amount)
 {
+	//set _timeToBeat
 	std::cout << "Time pressed: " << amount << std::endl;
 	if (amount == 0)
 	{
@@ -234,6 +252,7 @@ void OptionScene::SetTime(int amount)
 }
 void OptionScene::OpenTime()
 {
+	//open _timeToBeat options
 	this->addChild(Timescroll);
 	Timescroll->active = true;
 	DisableButtons();
@@ -241,6 +260,7 @@ void OptionScene::OpenTime()
 
 void OptionScene::SetColors(int amount)
 {
+	//set _colorAmount
 	std::cout << "Color pressed: " << amount << std::endl;
 	if (amount == 0)
 	{
@@ -257,6 +277,7 @@ void OptionScene::SetColors(int amount)
 }
 void OptionScene::OpenColors()
 {
+	//open _colorAmount options
 	this->addChild(Colorscroll);
 	Colorscroll->active = true;
 	DisableButtons();
@@ -264,6 +285,7 @@ void OptionScene::OpenColors()
 
 void OptionScene::DisableButtons()
 {
+	//disable all option buttons except the one that was clicked
 	for (Button* butt : Buttons)
 	{
 		this->removeChild(butt);
@@ -271,6 +293,7 @@ void OptionScene::DisableButtons()
 }
 void OptionScene::EnableButtons()
 {
+	//re-enable the buttons
 	for (Button* butt : Buttons)
 	{
 		this->addChild(butt);
@@ -279,6 +302,7 @@ void OptionScene::EnableButtons()
 
 void OptionScene::UpdateText()
 {
+	//update the text to display current options selected
 	std::string display = "current options: Width = ";
 	display += std::to_string(_gridx);
 	display += " height = ";
@@ -287,11 +311,14 @@ void OptionScene::UpdateText()
 	display += std::to_string(_maxClicks);
 	display += " Time = ";
 	display += std::to_string(_timeToBeat);
+	display += " Colors: ";
+	display += std::to_string(_colorAmount);
 	optionText->message(display);
 }
 
 void OptionScene::SetupButtons()
 {
+	//setup buttons for each option available in the optionscene
 	for (size_t i = 0; i <= 26; i++)
 	{
 		Button* option;
@@ -308,6 +335,7 @@ void OptionScene::SetupButtons()
 		option->position = Point2(SWIDTH / 2, option->sprite()->size.y + i * option->sprite()->size.y);
 		Xoptions.push_back(option);
 		Xscroll->addChild(option);
+		option = nullptr;
 	}
 	//----------------------------------------------------------//
 	for (int i = 0; i <= 12; i++)
@@ -326,6 +354,8 @@ void OptionScene::SetupButtons()
 		option->position = Point2(SWIDTH / 2, option->sprite()->size.y + i * option->sprite()->size.y);
 		Yoptions.push_back(option);
 		Yscroll->addChild(option);
+		//delete option;
+		option = nullptr;
 	}
 	//----------------------------------------------------------//
 	for (int i = 0; i <= 25; i++)
@@ -344,6 +374,8 @@ void OptionScene::SetupButtons()
 		option->position = Point2(SWIDTH / 2, option->sprite()->size.y + i * option->sprite()->size.y);
 		ClickOptions.push_back(option);
 		Clickscroll->addChild(option);
+		//delete option;
+		option = nullptr;
 	}
 	//----------------------------------------------------------//
 	for (int i = 0; i <= 25; i++)
@@ -362,6 +394,8 @@ void OptionScene::SetupButtons()
 		option->position = Point2(SWIDTH / 2, option->sprite()->size.y + i * option->sprite()->size.y);
 		TimeOptions.push_back(option);
 		Timescroll->addChild(option);
+		//delete option;
+		option = nullptr;
 	}
 	//----------------------------------------------------------//
 	for (int i = 0; i <= 25; i++)
@@ -380,5 +414,7 @@ void OptionScene::SetupButtons()
 		option->position = Point2(SWIDTH / 2, option->sprite()->size.y + i * option->sprite()->size.y);
 		ColorOptions.push_back(option);
 		Colorscroll->addChild(option);
+		//delete option;
+		option = nullptr;
 	}
 }

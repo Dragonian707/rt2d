@@ -12,7 +12,6 @@
 #include <rt2d/scene.h>
 #include <rt2d/text.h>
 #include "managescene.h"
-#include "basicentity.h"
 #include "button.h"
 
 /// @brief The MyScene class is the Scene implementation.
@@ -33,18 +32,6 @@ private:
 	Button* startbutton;
 	Button* optionbutton;
 	Button* quitbutton;
-	Button* exitoptions;
-	Button* enterX;
-	Button* enterY;
-
-	std::vector<BasicEntity*> Xoptions;
-	std::vector<BasicEntity*> Yoptions;
-
-	int _gridx;
-	int _gridy;
-	int _maxClicks;
-	float _timeToBeat;
-	bool optionsOpen = false;
 
 	void SetScene();
 	void OpenOptions(); 

@@ -12,6 +12,8 @@
 #include <rt2d/scene.h>
 #include "managescene.h"
 #include "grid.h"
+#include "button.h"
+#include "hudbox.h"
 
 /// @brief The MyScene class is the Scene implementation.
 class GameScene : public Scene
@@ -33,8 +35,17 @@ private:
 	Text* HUD;
 	int clicksleft;
 
+	HUDbox* pauseHUD;
+	Button* closeHUD;
+	Button* openOptions;
+	Button* quitGame;
+
 	void ResetGrid();
 	void UpdateText();
+
+	void OpenPause();
+	void OpenOptions();
+	void ClosePause();
 };
 
 #endif /* SCENE00_H */

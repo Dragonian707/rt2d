@@ -31,7 +31,7 @@ Grid::Grid(int X, int Y, int colorAmount) : Entity()
 	}
 	else
 	{
-		for (int i = 0; i <= colorAmount; i++)
+		for (int i = 0; i < colorAmount; i++)
 		{
 			colors.push_back(RGBAColor(rand() & 255, rand() & 255, rand() & 255, 255));
 		}
@@ -39,6 +39,8 @@ Grid::Grid(int X, int Y, int colorAmount) : Entity()
 
 	// create the grid
 	createGrid();
+
+	paused = false;
 }
 
 
@@ -65,30 +67,25 @@ void Grid::update(float deltaTime)
 	/*std::cout << "selected: " << selectedID << " X pos: " << (selectedID % gridx) << " Y pos: " << (selectedID / gridx) << std::endl;*/
 	
 	//whenever you click
-	if (input()->getMouseDown(0))
+	if (input()->getMouseDown(0) && !paused)
 	{
-		/*std::cout << "click!" << std::endl;*/
 		//if it's the first click set the first tile else update them and their neighbors to be new colors
 		if (firstClick == nullptr)
 		{
 			firstClick = tiles[selectedID];
+			firstClick->checkNeigbors(tiles[selectedID]->sprite()->color);
 		}
 		else
 		{
 			firstClick->checkNeigbors(tiles[selectedID]->sprite()->color);
 			checkColors();
-			for (size_t i = 0; i < tiles.size(); i++)
-			{
-				tiles[i]->isChecked = false;
-			}
+			firstClick->checkNeigbors(tiles[selectedID]->sprite()->color);
+		}
+		for (size_t i = 0; i < tiles.size(); i++)
+		{
+			tiles[i]->isChecked = false;
 		}
 	}
-
-	//if (input()->getKeyDown(KeyCode::Enter))
-	//{
-	//	//createGrid();
-	//	win();
-	//}
 }
 
 int Grid::CheckClosest(Point2 pos)
@@ -122,7 +119,6 @@ void Grid::checkColors()
 		}
 		tiles[i]->isChecked = false;
 	}
-	std::cout << "counter amount: " << counter << " target: " << tiles.size() << std::endl;
 	if (counter == tiles.size())
 	{
 		win();
@@ -140,6 +136,7 @@ void Grid::createGrid()
 	removeGrid();
 	firstClick = nullptr;
 
+	//Make the grid
 	for (int y = 0; y < gridy; y++)
 	{
 		for (int x = 0; x < gridx; x++)
@@ -179,15 +176,13 @@ void Grid::createGrid()
 		indexesX.push_back(x);		indexesY.push_back(y - 1);
 		indexesX.push_back(x);		indexesY.push_back(y + 1);
 
-		if (x % 2 == 0) //if the x is even minus the y value, else plus the y value
+		if (x % 2 == 0) //if the x is even subtract the y value, else add the y value
 		{
-			// +1 / -1 / +26 / -25 -- -27
 			indexesX.push_back(x - 1); indexesY.push_back(y - 1);
 			indexesX.push_back(x + 1); indexesY.push_back(y - 1);
 		}
 		else
 		{
-			// +1 / -1 / -26 / +25 -- +27
 			indexesX.push_back(x - 1); indexesY.push_back(y + 1);
 			indexesX.push_back(x + 1); indexesY.push_back(y + 1);
 		}
@@ -206,7 +201,7 @@ void Grid::createGrid()
 				indexesTiles.push_back(add);
 			}
 		}
-		//give single digit values to add correct neighbors
+		//give single digit values to add the correct neighbors
 		for (int j = 0; j < indexesTiles.size(); j++)
 		{
 			tiles[i]->addNeighbor(tiles[indexesTiles[j]]);

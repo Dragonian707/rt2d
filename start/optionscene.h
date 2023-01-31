@@ -12,7 +12,6 @@
 #include <rt2d/scene.h>
 #include <rt2d/text.h>
 #include "managescene.h"
-#include "basicentity.h"
 #include "button.h"
 #include "scrollarea.h"
 
@@ -21,7 +20,7 @@ class OptionScene : public Scene
 {
 public:
 	/// @brief Constructor
-	OptionScene();
+	OptionScene(int prevScene);
 	/// @brief Destructor
 	virtual ~OptionScene();
 
@@ -61,6 +60,7 @@ private:
 	int _maxClicks;
 	int _timeToBeat;
 	int _colorAmount;
+	int previous;
 
 	void CloseOptions();
 	void SetGridWidth(int width);

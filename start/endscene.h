@@ -12,6 +12,7 @@
 #include <rt2d/scene.h>
 #include <rt2d/text.h>
 #include "managescene.h"
+#include "button.h"
 
 /// @brief The EndScene class is the Scene implementation.
 class EndScene : public Scene
@@ -29,6 +30,10 @@ public:
 
 private:
 	Text* endText;
+
+	Button* backToHome;
+
+	void mainMenu();
 };
 
 #endif /* SCENE00_H */

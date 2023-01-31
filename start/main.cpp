@@ -22,16 +22,6 @@ int main( void )
 {
 	// Core instance
 	Core core;
-	/*
-	// Scene01
-	Grid* myscene = new Grid(); // create Scene on the heap
-	while(myscene->isRunning()) { // check status of Scene every frame
-		core.run(myscene); // update and render the current scene
-		//core.showFrameRate(5); // show framerate in output every n seconds
-	}
-	//core.cleanup(); // cleanup ResourceManager (Textures + Meshes, but not Shaders)
-	delete myscene; // delete Scene and everything in it from the heap to make space for next Scene
-	*/
 
 	static ManageScene* scene = new ManageScene();
 

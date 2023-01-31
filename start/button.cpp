@@ -5,23 +5,16 @@
 
 Button::Button(std::string ButtonText) : Entity() {
 	ButtonState = 0;
-	//SpriteFrame = 3;
 	_CallbackFunction = NULL;
 
-	//this->addSpriteSheet("assets/button.tga", 1, 4); // divide Texture in 1x4 slices
-	//this->sprite()->frame(SpriteFrame);
 	this->addSprite("assets/button.tga");
-	//this->sprite()->pivot = Point2(0, 0);
 	this->sprite()->size = Point2(256, 64);
 
-	//Text* line = new Text();
 	textbox = new Text();
 	textbox->scale = Point2(0.45f, 0.45f);
 	textbox->message(ButtonText, WHITE);
 	addChild(textbox);
 	textbox->position.x -= (textbox->message().size() * 32 * textbox->scale.x / 2);
-
-	//std::cout << textbox->position << "  " << textbox->worldposition() << std::endl;
 }
 
 Button::~Button() {
@@ -35,7 +28,7 @@ void Button::update(float deltaTime) {
 	int mousex = input()->getMouseX();
 	int mousey = input()->getMouseY();
 
-	Point2 pos = this->position;
+	Point2 pos = this->worldposition();
 
 	int left = pos.x - sprite()->size.x * 0.5f;
 	int right = pos.x + sprite()->size.x * 0.5f;

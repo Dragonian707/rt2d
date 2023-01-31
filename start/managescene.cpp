@@ -37,6 +37,7 @@ ManageScene::~ManageScene()
 
 Scene* ManageScene::GetActiveScene()
 {
+	//Get the scene that is currently active
 	if (currentScene == nullptr)
 	{
 		return NULL;
@@ -54,12 +55,14 @@ Scene* ManageScene::GetActiveScene()
 
 void ManageScene::CheckScene()
 {
+	//if the current scene hasn't been set yet make it the startscene
 	if (currentScene == nullptr)
 	{
 		currentScene = new StartScene();
 		active = startscene;
 	}
 	
+	//check which scene is supposed to be active and set it to that scene if it changed
 	switch (activescene)
 	{
 		case 0:
@@ -97,7 +100,7 @@ void ManageScene::CheckScene()
 			if (active != optionscene)
 			{
 				delete currentScene;
-				currentScene = new OptionScene();
+				currentScene = new OptionScene(active);
 				active = optionscene;
 			}
 			break;

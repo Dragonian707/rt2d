@@ -30,6 +30,8 @@ public:
 	virtual void update(float deltaTime);
 	void createGrid();
 
+	bool paused;
+
 private:
 	std::vector<HexTile*> tiles;
 	HexTile* hextile;
